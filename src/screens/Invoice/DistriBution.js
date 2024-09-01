@@ -125,6 +125,7 @@ function DistriBution({ navigation }) {
     const focusHandler = navigation.addListener('focus', () => {
       getMenuValue();
     });
+   
 
     return () => {
       focusHandler;
@@ -671,7 +672,7 @@ function DistriBution({ navigation }) {
 
 
     if (item.sl == 1) {
-      var serial = (<Ionicons name="ios-trophy-sharp" size={17} color="white" />);
+      var serial = (<FontAwesome name="trophy" size={17} color="white" />);
     }
     else {
       var serial = (<Text style={{ ...FONTS.h4, color: '#fff', justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>

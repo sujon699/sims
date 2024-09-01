@@ -10,6 +10,7 @@ import FlashMessage from "react-native-flash-message";
 import { useNetInfo } from "@react-native-community/netinfo";
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
+import SplashScreen from 'react-native-splash-screen'
 
 
 const theme = {
@@ -28,6 +29,7 @@ const App = () => {
 
 
   useEffect(() => {
+    SplashScreen.hide();
   }, [])
 
 
@@ -59,8 +61,9 @@ const App = () => {
     <>
 
       <View style={{ flex: 1 }}>
+        {intialRender()}
 
-        {!netInfo.isConnected ? (<DisconectedPage />) : intialRender()}
+        {/* {!netInfo.isConnected ? (<DisconectedPage />) : intialRender()} */}
         <FlashMessage position="top" />
       </View>
       

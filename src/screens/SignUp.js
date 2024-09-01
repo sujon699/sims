@@ -24,7 +24,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StackActions } from '@react-navigation/native';
 import { showMessage } from "react-native-flash-message";
 import Loading from "../utils/Loading";
-import DeviceInfo from 'react-native-device-info';
+import  DeviceInfo  from 'react-native-device-info';
 
 
 
@@ -37,6 +37,20 @@ const SignUp = ({ navigation }) => {
     const [showPassword, setShowPassword] = useState(false)
     const [isLoding, setIsLoding] = useState(false);
     const [isloddingAction, setIsloddingAction] = useState(false);
+    const [DeviceInfos, setDeviceInfons] = useState({appVersion:'',phUniqueID:''});
+
+
+   
+
+    const getDeviceInfo = async () =>{
+
+        DeviceInfo.getUniqueId().then((uniqueId) => {
+            setDeviceInfons({appVersion:DeviceInfo.getVersion(),phUniqueID:uniqueId})
+        });
+
+     
+        
+    }
       
     
    
@@ -96,7 +110,9 @@ const SignUp = ({ navigation }) => {
    
 
     useEffect( () => {
+        getDeviceInfo();
         fetchtoken(); 
+        
         let cancel = false;
 
         return () => { 
@@ -263,27 +279,23 @@ const SignUp = ({ navigation }) => {
         }
         else
         {
-            setIsLoding(true)
-            try {
-                    //  alert(getVersion());
-                    var E_tokenID = '';
-                    //var E_tokenID = await AsyncStorage.getItem('expoToken');
+            setIsLoding(true);
 
-                    if(E_tokenID == null)
-                    {
-                       // E_tokenID =  await registerForPushNotificationsAsync();
-                        //console.log(E_tokenID);
-                    }
+            try {
+                 
+                    var E_tokenID = '';
+                
 
                     const {data} = await BaseApi.post('/log.php', {
                         usr: usr.trim(),
                         pass: pass.trim(),
                         expoToken : E_tokenID,
+                        phUniqueID : DeviceInfos.phUniqueID,
                         act:'LogIn',
-                        app_version: DeviceInfo.getVersion()
+                        app_version: DeviceInfos.appVersion
                     });
                     //console.log(data);
-                    //alert( JSON.stringify(data));
+                   // alert( JSON.stringify(data));
 
                     if(data.service_header.status_tag === 'success')
                     {

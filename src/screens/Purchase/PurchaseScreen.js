@@ -127,7 +127,7 @@ function PurchaseScreen({ navigation, route }) {
     const snapPoint = ["45%"];
     const [scanned, setScanned] = useState(false);
     const [scanInterface, setScanInterface] = useState(true);
-    const [permission, requestPermission] = useCameraPermissions();
+   
 
 
     useEffect(() => {

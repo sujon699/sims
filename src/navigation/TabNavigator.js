@@ -36,6 +36,7 @@ const Stack = createNativeStackNavigator();
 
 const HomeStack = () => {
   return (
+    
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
@@ -121,23 +122,6 @@ const HomeStack = () => {
 };
 
 
-// const PerMisstionStack = () => {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen
-//         name="Permissiontab"
-//         component={Permissiontab}
-//         options={{headerShown: false}}
-//       />
-//       <Stack.Screen
-//         name="CustomerDetails"
-//         component={CustomerDetails}
-//         options={{headerShown: false}}
-       
-//       />
-//     </Stack.Navigator>
-//   );
-// };
 
 const SacnStack = () => {
   return (
@@ -191,7 +175,8 @@ const TabNavigator = () => {
         component={HomeStack} 
         options={({route}) => ({
           tabBarStyle: {
-            display: 'flex',
+           // display: 'flex',
+            display: getTabBarVisibility(route),
           },
           tabBarIcon: ({color, size}) => (
             <Entypo name="home" color={color} size={scale(24)} />
@@ -217,6 +202,10 @@ const TabNavigator = () => {
         name="Scan"
         component={SacnStack}
         options={({route}) => ({
+            tabBarStyle: {
+              // display: 'flex',
+              display: getTabBarVisibility(route),
+            },
             tabBarIcon: ({color, size}) => (
             <MaterialCommunityIcons name="qrcode-scan" size={scale(30)} color={color} />
           ),
@@ -260,6 +249,17 @@ const TabNavigator = () => {
 
     </Tab.Navigator>
   );
+};
+
+const getTabBarVisibility = route => {
+   //console.log(route);
+  const routeName = getFocusedRouteNameFromRoute(route) ?? 'Feed';
+   //console.log(routeName);
+
+  if( routeName == 'Home' || routeName == 'ScanInterface'  ) {
+    return 'flex';
+  }
+  return 'none';
 };
 
 

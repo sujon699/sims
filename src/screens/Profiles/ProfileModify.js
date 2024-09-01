@@ -524,7 +524,7 @@ const ProfileModify = ({ navigation, route }) => {
       cropping: true,
     }).then(image => {
       //console.log(image);
-      alert(JSON.stringify(image));
+      //alert(JSON.stringify(image));
       setTmpImage(image.path);
       setImage(image.path);
     //  setIsModalCamera(false);
